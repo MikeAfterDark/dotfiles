@@ -1,2 +1,2 @@
-# dotifles
+# dotfiles
 my personal dotfiles
