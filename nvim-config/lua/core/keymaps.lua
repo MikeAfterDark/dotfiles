@@ -24,6 +24,10 @@ vim.keymap.set('n', 'x', '"_x', opts)
 vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
 vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
 
+-- Vertical scroll and center line-by-line
+vim.keymap.set('n', '<A-Up>', 'kzz', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-Down>', 'jzz', { noremap = true, silent = true })
+
 -- Find and center
 vim.keymap.set('n', 'n', 'nzzzv', opts)
 vim.keymap.set('n', 'N', 'Nzzzv', opts)
@@ -37,12 +41,12 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
 -- Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
-vim.keymap.set('n', '<leader>c', ':bdelete!<CR>', opts)   -- close buffer
+vim.keymap.set('n', '<leader>c', ':bdelete!<CR>', opts) -- close buffer
 vim.keymap.set('n', '<leader>n', '<cmd> enew <CR>', opts) -- new buffer
 
 -- Window management
-vim.keymap.set('n', '\\', '<C-w>v', opts)             -- split window vertically
-vim.keymap.set('n', '|', '<C-w>s', opts)              -- split window horizontally
+vim.keymap.set('n', '\\', '<C-w>v', opts) -- split window vertically
+vim.keymap.set('n', '|', '<C-w>s', opts) -- split window horizontally
 vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
 
 -- Navigate between splits
@@ -52,10 +56,10 @@ vim.keymap.set('n', '<C-h>', ':wincmd h<CR>', opts)
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', opts)
 
 -- Tabs
-vim.keymap.set('n', '<leader>to', ':tabnew<CR>', opts)   -- open new tab
+vim.keymap.set('n', '<leader>to', ':tabnew<CR>', opts) -- open new tab
 vim.keymap.set('n', '<leader>tx', ':tabclose<CR>', opts) -- close current tab
-vim.keymap.set('n', '<leader>tn', ':tabn<CR>', opts)     --  go to next tab
-vim.keymap.set('n', '<leader>tp', ':tabp<CR>', opts)     --  go to previous tab
+vim.keymap.set('n', '<leader>tn', ':tabn<CR>', opts) --  go to next tab
+vim.keymap.set('n', '<leader>tp', ':tabp<CR>', opts) --  go to previous tab
 
 -- Stay in indent mode
 vim.keymap.set('v', '<', '<gv', opts)

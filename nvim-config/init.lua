@@ -13,8 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Set up plugins
 require('lazy').setup {
+    require 'plugins.colourtheme',
     require 'plugins.neotree',
-    require 'plugins.colortheme',
     require 'plugins.bufferline',
     require 'plugins.lualine',
     require 'plugins.treesitter',
@@ -28,3 +28,5 @@ require('lazy').setup {
     require 'plugins.misc',
     require 'plugins.comment',
 }
+
+-- require 'lush'(require 'colours.lush')

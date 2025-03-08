@@ -159,7 +159,7 @@ return {
 
             -- C#
             omnisharp = {
-                cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+                cmd = { 'OmniSharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
                 settings = {
                     FormattingOptions = {
                         EnableEditorConfigSupport = true,
@@ -172,22 +172,22 @@ return {
 
             -- C++
             clangd = {
-                cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed" },
+                cmd = { 'clangd', '--background-index', '--clang-tidy', '--completion-style=detailed' },
                 settings = {
                     clangd = {
-                        fallbackFlags = { "-std=c++17" },
+                        fallbackFlags = { '-std=c++17' },
                     },
                 },
                 on_attach = function(client)
-                    client.server_capabilities.documentFormattingProvider = false -- Disable clangd formatting
+                    client.server_capabilities.documentFormattingProvider = true -- Enable clangd formatting
                 end,
             },
 
             -- Java
             jdtls = {
-                cmd = { "jdtls" },
+                cmd = { 'jdtls' },
                 root_dir = function(fname)
-                    return require("lspconfig.util").root_pattern("pom.xml", "gradle.build", ".git")(fname)
+                    return require('lspconfig.util').root_pattern('pom.xml', 'gradle.build', '.git')(fname)
                 end,
                 on_attach = function(client)
                     client.server_capabilities.documentFormattingProvider = false -- Disable JDTLS formatting
@@ -310,5 +310,4 @@ return {
             },
         }
     end,
-
 }
