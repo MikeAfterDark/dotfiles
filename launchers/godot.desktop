@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Godot Engine
+Comment=Launch Godot from local install
+Exec=/home/mike/.local/bin/godot
+Icon=/home/mike/.local/bin/GodotSharp/icon.png
+Terminal=false
+Type=Application
+Categories=Development;

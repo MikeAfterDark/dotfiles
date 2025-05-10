@@ -42,4 +42,12 @@ return {
             require('colorizer').setup()
         end,
     },
+    {
+        'lervag/vimtex',
+        ft = 'tex',
+        config = function()
+            -- vim.g.vimtex_view_method = 'zathura' -- or 'skim', 'sioyek', etc. depending on your OS
+            vim.g.vimtex_compiler_method = 'tectonic'
+        end,
+    },
 }

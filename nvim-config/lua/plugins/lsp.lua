@@ -9,7 +9,7 @@ return {
 
         -- Useful status updates for LSP.
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { 'j-hui/fidget.nvim',       opts = {} },
+        { 'j-hui/fidget.nvim', opts = {} },
 
         -- Allows extra capabilities provided by nvim-cmp
         'hrsh7th/cmp-nvim-lsp',
@@ -100,7 +100,7 @@ return {
                 --
                 -- When you move your cursor, the highlights will be cleared (the second autocommand).
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
-                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                if client and client.supports_method 'textDocument/documentHighlight' then
                     local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
                     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
                         buffer = event.buf,
@@ -127,7 +127,7 @@ return {
                 -- code, if the language server you are using supports them
                 --
                 -- This may be unwanted, since they displace some of your code
-                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                if client and client.supports_method 'textDocument/inlayHint' then
                     map('<leader>th', function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
                     end, '[T]oggle Inlay [H]ints')
@@ -159,7 +159,7 @@ return {
 
             -- C#
             omnisharp = {
-                cmd = { 'OmniSharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+                cmd = { vim.fn.expand '~/.omnisharp/OmniSharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
                 settings = {
                     FormattingOptions = {
                         EnableEditorConfigSupport = true,
@@ -171,89 +171,86 @@ return {
             },
 
             -- C++
-            clangd = {
-                cmd = { 'clangd', '--background-index', '--clang-tidy', '--completion-style=detailed' },
-                settings = {
-                    clangd = {
-                        fallbackFlags = { '-std=c++17' },
-                    },
-                },
-                on_attach = function(client)
-                    client.server_capabilities.documentFormattingProvider = true -- Enable clangd formatting
-                end,
-            },
+            -- clangd = {
+            --     cmd = { 'clangd', '--background-index', '--clang-tidy', '--completion-style=detailed' },
+            --     settings = {
+            --         clangd = {
+            --             fallbackFlags = { '-std=c++17' },
+            --         },
+            --     },
+            --     on_attach = function(client)
+            --         client.server_capabilities.documentFormattingProvider = true -- Enable clangd formatting
+            --     end,
+            -- },
 
             -- Java
-            jdtls = {
-                cmd = { 'jdtls' },
-                root_dir = function(fname)
-                    return require('lspconfig.util').root_pattern('pom.xml', 'gradle.build', '.git')(fname)
-                end,
-                on_attach = function(client)
-                    client.server_capabilities.documentFormattingProvider = false -- Disable JDTLS formatting
-                end,
-            },
+            -- jdtls = {
+            --     cmd = { 'jdtls' },
+            --     root_dir = function(fname)
+            --         return require('lspconfig.util').root_pattern('pom.xml', 'gradle.build', '.git')(fname)
+            --     end,
+            --     on_attach = function(client)
+            --         client.server_capabilities.documentFormattingProvider = false -- Disable JDTLS formatting
+            --     end,
+            -- },
 
             -- Rust
-            -- rust_analyzer = {
-            --    settings = {
-            --        ["rust-analyzer"] = {
-            --            cargo = { allFeatures = true },
-            --            checkOnSave = { command = "clippy" },
-            --        },
-            --    },
-            --    on_attach = function(client)
-            --        client.server_capabilities.documentFormattingProvider = false -- Disable Rust Analyzer formatting
-            --    end,
-            --},
+            rust_analyzer = {
+                settings = {
+                    ['rust-analyzer'] = {
+                        cargo = { allFeatures = true },
+                        checkOnSave = { command = 'clippy' },
+                    },
+                },
+                on_attach = function(client)
+                    client.server_capabilities.documentFormattingProvider = false -- Disable Rust Analyzer formatting
+                end,
+            },
 
             -- Go
-            gopls = {
-                settings = {
-                    gopls = {
-                        analyses = {
-                            unusedparams = true,
-                        },
-                        staticcheck = true,
-                    },
-                },
-                on_attach = function(client)
-                    client.server_capabilities.documentFormattingProvider = false -- Disable gopls formatting
-                end,
-            },
+            -- gopls = {
+            --     settings = {
+            --         gopls = {
+            --             analyses = {
+            --                 unusedparams = true,
+            --             },
+            --             staticcheck = true,
+            --         },
+            --     },
+            --     on_attach = function(client)
+            --         client.server_capabilities.documentFormattingProvider = false -- Disable gopls formatting
+            --     end,
+            -- },
 
-            -- TypeScript / JavaScript
-            ts_ls = {}, -- tsserver is deprecated
-
-            -- Python
-            ruff = {},
-            pylsp = {
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pyflakes = { enabled = false },
-                            pycodestyle = { enabled = false },
-                            autopep8 = { enabled = false },
-                            yapf = { enabled = false },
-                            mccabe = { enabled = false },
-                            pylsp_mypy = { enabled = false },
-                            pylsp_black = { enabled = false },
-                            pylsp_isort = { enabled = false },
-                        },
-                    },
-                },
-                on_attach = function(client)
-                    client.server_capabilities.documentFormattingProvider = false -- Disable pylsp formatting
-                end,
-            },
+            -- -- Python
+            -- ruff = {},
+            -- pylsp = {
+            --     settings = {
+            --         pylsp = {
+            --             plugins = {
+            --                 pyflakes = { enabled = false },
+            --                 pycodestyle = { enabled = false },
+            --                 autopep8 = { enabled = false },
+            --                 yapf = { enabled = false },
+            --                 mccabe = { enabled = false },
+            --                 pylsp_mypy = { enabled = false },
+            --                 pylsp_black = { enabled = false },
+            --                 pylsp_isort = { enabled = false },
+            --             },
+            --         },
+            --     },
+            --     on_attach = function(client)
+            --         client.server_capabilities.documentFormattingProvider = false -- Disable pylsp formatting
+            --     end,
+            -- },
 
             -- Other LSPs
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
-            tailwindcss = {},
-            dockerls = {},
+            -- tailwindcss = {},
+            -- dockerls = {},
             sqlls = {},
-            terraformls = {},
+            -- terraformls = {},
             jsonls = {},
             yamlls = {},
 

@@ -1,0 +1,20 @@
+-- local port = tonumber(os.getenv 'GDScript_Port' or '6005')
+-- local pipe = '/tmp/godot.pipe'
+--
+-- -- Only start once per buffer
+-- if not vim.b.godot_client_started then
+--     local rpc = vim.lsp.rpc.connect('127.0.0.1', port)
+--     local client_id = vim.lsp.start_client {
+--         name = 'Godot',
+--         rpc = rpc,
+--         root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
+--     }
+--
+--     vim.lsp.buf_attach_client(0, client_id)
+--     vim.b.godot_client_started = true
+--
+--     -- Ensure pipe is started so Godot can send notifications
+--     if vim.v.servername == '' then
+--         vim.fn.serverstart(pipe)
+--     end
+-- end
